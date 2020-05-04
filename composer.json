@@ -1,6 +1,6 @@
 {
     "name": "factorenergia/yii2-adminlte3",
-    "description": "yii2-adminlte3 is a package for Tii framework 2 that consists a very popular admin template AdminLTE (Based on bootstrap4)",
+    "description": "Yii2-adminlte3 is a package for Yii2 that envelopes the very popular AdminLTE3 (Bootstrap4)",
     "keywords": [
         "yii2",
         "admin",

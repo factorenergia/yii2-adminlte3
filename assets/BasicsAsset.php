@@ -1,5 +1,5 @@
 <?php
-namespace factorenergia\adminlte3\assets;
+namespace factorenergia\adminlte\assets;
 
 use yii\web\AssetBundle;
 
@@ -7,7 +7,7 @@ use yii\web\AssetBundle;
  * Basic application asset bundle.
  * @author Josep Vidal <josepvidalvidal@gmail.com>
  */
-class BasicsAsset extends AssetBundle
+class BasicAsset extends AssetBundle
 {
     public $sourcePath = '@vendor/almasaeed2010/adminlte/dist';
     public $css = [
