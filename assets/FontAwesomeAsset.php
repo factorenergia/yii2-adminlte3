@@ -1,5 +1,5 @@
 <?php
-namespace factorenergia\adminlte3\assets;
+namespace factorenergia\adminlte\assets;
 
 use yii\web\AssetBundle;
 
