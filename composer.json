@@ -1,0 +1,80 @@
+{
+    "name": "factorenergia/yii2-adminlte3",
+    "description": "yii2-adminlte3 is a package for Tii framework 2 that consists a very popular admin template AdminLTE (Based on bootstrap4)",
+    "keywords": [
+        "yii2",
+        "admin",
+        "template",
+        "theme",
+        "backend",
+        "AdminLTE",
+        "bootstrap4"
+    ],
+    "homepage": "https://github.com/factorenergia/yii2-adminlte3",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Josep Vidal",
+            "email": "jvidal@factorenergia.com",
+            "homepage": "https://github.com/jvidalv",
+            "role": "Creator"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.4",
+        "yiisoft/yii2": ">=2.0.14",
+        "yiisoft/yii2-bootstrap4": "~2.0.8",
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "~2.1.0",
+        "yiisoft/yii2-gii": "~2.1.0",
+        "yiisoft/yii2-faker": "~2.0.0",
+        "codeception/codeception": "^4.0",
+        "codeception/verify": "~0.5.0 || ~1.1.0",
+        "codeception/specify": "~0.4.6",
+        "symfony/browser-kit": ">=2.7 <=4.2.4",
+        "codeception/module-filesystem": "^1.0.0",
+        "codeception/module-yii2": "^1.0.0",
+        "codeception/module-asserts": "^1.0.0"
+    },
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "yii\\composer\\Installer::postInstall"
+        ],
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::postCreateProject",
+            "yii\\composer\\Installer::postInstall"
+        ]
+    },
+    "extra": {
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "web/assets": "0777",
+                    "yii": "0755"
+                }
+            ]
+        },
+        "yii\\composer\\Installer::postInstall": {
+            "generateCookieValidationKey": [
+                "config/web.php"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
