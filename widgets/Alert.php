@@ -1,75 +1,83 @@
 <?php
-namespace app\widgets;
+namespace factorenergia\adminlte3\widgets;
 
-use Yii;
+use yii\base\ErrorException;
+use yii\bootstrap4\Widget;
 
-/**
- * Alert widget renders a message from session flash. All flash messages are displayed
- * in the sequence they were assigned using setFlash. You can set message as following:
- *
- * ```php
- * Yii::$app->session->setFlash('error', 'This is the message');
- * Yii::$app->session->setFlash('success', 'This is the message');
- * Yii::$app->session->setFlash('info', 'This is the message');
- * ```
- *
- * Multiple messages could be set as follows:
- *
- * ```php
- * Yii::$app->session->setFlash('error', ['Error 1', 'Error 2']);
- * ```
- *
- * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @author Alexander Makarov <sam@rmcreative.ru>
- */
-class Alert extends \yii\bootstrap\Widget
+
+class Alert extends Widget
 {
-    /**
-     * @var array the alert types configuration for the flash messages.
-     * This array is setup as $key => $value, where:
-     * - key: the name of the session flash variable
-     * - value: the bootstrap alert type (i.e. danger, success, info, warning)
-     */
     public $alertTypes = [
-        'error'   => 'alert-danger',
-        'danger'  => 'alert-danger',
-        'success' => 'alert-success',
-        'info'    => 'alert-info',
-        'warning' => 'alert-warning'
+        'danger' => [
+            'class' => 'alert-danger',
+            'icon' => 'fa-ban'
+        ],
+        'info' => [
+            'class' => 'alert-info',
+            'icon' => 'fa-info'
+        ],
+        'warning' => [
+            'class' => 'alert-warning',
+            'icon' => 'fa-exclamation-triangle'
+        ],
+        'success' => [
+            'class' => 'alert-success',
+            'icon' => 'fa-check'
+        ]
     ];
+
+    public $type;
+
+    public $title = 'Alert';
+
     /**
-     * @var array the options for rendering the close button tag.
-     * Array will be passed to [[\yii\bootstrap\Alert::closeButton]].
+     * @var string the body content in the alert component.
+     */
+    public $body;
+
+    /**
+     * @var bool whether or not the body has the head
+     */
+    public $simple = false;
+
+    /**
+     * @var array|false the options for rendering the close button tag.
+     *
+     * The following special options are supported:
+     *
+     * - tag: string, the tag name of the button. Defaults to 'button'.
+     * - label: string, the label of the button. Defaults to '&times;'.
+     *
+     * The rest of the options will be rendered as the HTML attributes of the button tag.
      */
     public $closeButton = [];
 
+    public function init()
+    {
+        parent::init();
 
-    /**
-     * {@inheritdoc}
-     */
+        if (is_null($this->type)) {
+            $this->type = 'info';
+        }
+        if (!isset($this->alertTypes[$this->type])) {
+            throw new ErrorException('unsupported type: '.$this->type);
+        }
+    }
+
     public function run()
     {
-        $session = Yii::$app->session;
-        $flashes = $session->getAllFlashes();
-        $appendClass = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
-
-        foreach ($flashes as $type => $flash) {
-            if (!isset($this->alertTypes[$type])) {
-                continue;
-            }
-
-            foreach ((array) $flash as $i => $message) {
-                echo \yii\bootstrap\Alert::widget([
-                    'body' => $message,
-                    'closeButton' => $this->closeButton,
-                    'options' => array_merge($this->options, [
-                        'id' => $this->getId() . '-' . $type . '-' . $i,
-                        'class' => $this->alertTypes[$type] . $appendClass,
-                    ]),
-                ]);
-            }
-
-            $session->removeFlash($type);
+        $head = '';
+        if (!$this->simple) {
+            $head = '<h5><i class="icon fas '.$this->alertTypes[$this->type]['icon'].'"></i> '.$this->title.'!</h5>';
         }
+
+        echo \yii\bootstrap4\Alert::widget([
+            'body' => $head.$this->body,
+            'closeButton' => $this->closeButton,
+            'options' => [
+                'id' => $this->getId().'-'.$this->type,
+                'class' => $this->alertTypes[$this->type]['class']
+            ]
+        ]);
     }
 }
