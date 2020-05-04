@@ -18,7 +18,7 @@ On your main view, like `Layout.php` you must register the assets of this extens
 ```php
 
 // Top of your view file, Layout is good because most of your app goes inside of it
-factorenergia\adminlte\assets\FontAwesomeAsset::register($this);
-factorenergia\adminlte\assets\BasicAsset::register($this);
+factorenergia\adminlte3\assets\FontAwesomeAsset::register($this);
+factorenergia\adminlte3\assets\BasicAsset::register($this);
 
 ```
