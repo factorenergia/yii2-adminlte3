@@ -7,7 +7,7 @@ use yii\web\AssetBundle;
  * Basic application asset bundle.
  * @author Josep Vidal <josepvidalvidal@gmail.com>
  */
-class Basics extends AssetBundle
+class BasicsAsset extends AssetBundle
 {
     public $sourcePath = '@vendor/almasaeed2010/adminlte/dist';
     public $css = [
@@ -19,5 +19,6 @@ class Basics extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap4\BootstrapAsset',
+        'yii\bootstrap4\BootstrapPluginAsset'
     ];
 }

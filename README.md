@@ -8,11 +8,10 @@
 #### How to use
 On your main view, like `Layout.php` you must register the assets of this extension:
 
-```
-<?php
+```php
 
 // Top of your view file, Layout is good because most of your app goes inside of it
-factorenergia\adminlte3\assets\Basics::register($this);
+\factorenergia\adminlte3\assets\FontAwesomeAsset::register($this);
+\factorenergia\adminlte3\assets\BasicsAsset::register($this);
 
-?>
 ```
