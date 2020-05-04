@@ -5,6 +5,14 @@
 
 **``yii2-adminlte3`` is a yii2 extension that makes use of the famous free  template AdminLte3.**
 
+#### How to install
+
+Install via composer with:
+
+```
+composer require factorenergia/yii2-adminlte3
+
+```
 #### How to use
 On your main view, like `Layout.php` you must register the assets of this extension:
 
