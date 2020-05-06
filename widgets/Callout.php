@@ -1,4 +1,5 @@
 <?php
+
 namespace factorenergia\adminlte3\widgets;
 
 use yii\base\ErrorException;
@@ -8,72 +9,96 @@ use yii\helpers\Html;
 /**
  * Class Callout
  * @package factorenergia\adminlte3\widgets
+ *
  * @example
- * <?= Callout::widget(['type'=>'info', 'head'=>'head string', 'body'=>'body string']) ?>
- * Also possible
- * <?php Callout::begin(['type'=>'info', 'head'=>'head string']) ?>
- *      body content
- * <?php Callout::end() ?>
+ *  echo Callout::widget(['type'=> Callout::TYPE_WARNING, 'title' => 'This is a callout', 'content' => 'Content'])
+ *  Also possible
+ *  Callout::begin(['type'=> Callout::TYPE_SUCCESS, 'title'=> 'Title']) ?>
+ *      CONTENT
+ *  Callout::end()
  */
 class Callout extends Widget
 {
+    const TYPE_DANGER = 'danger';
+    CONST TYPE_INFO = 'info';
+    const TYPE_WARNING = 'warning';
+    CONST TYPE_SUCCESS = 'success';
+
     /**
      * @var array supported type
      */
-    public $supportedType = ['danger', 'info', 'warning', 'success'];
-
-    public $type;
+    public array $supportedType = ['danger', 'info', 'warning', 'success'];
 
     /**
      * @var string
      */
-    public $head;
+    public string $type = self::TYPE_INFO;
 
     /**
      * @var string
      */
-    public $body;
+    public ?string $title = null;
 
     /**
+     * @var string
+     */
+    public ?string $content = null;
+
+    /**
+     * Callout options
      * @inheritdoc
      */
-    public $options = [];
+    public array $options = [];
+
+    /**
+     * Title options
+     * @inheritdoc
+     */
+    public array $optionsTitle = [];
+
+    /**
+     * Content options
+     * @inheritdoc
+     */
+    public array $optionsContent = [];
 
     /**
      * @var string $template
      */
     public $template = <<<html
-<div {options}>
-    <h5>{head}</h5>
-    <p>{body}</p>
-</div>
-html;
+        <div {options}>
+            <h5 {optionsTitle}>{title}</h5>
+            <p {optionsContent}>{content}</p>
+        </div>
+    html;
 
     public function init()
     {
         parent::init();
 
-        if (is_null($this->type)) {
-            $this->type = 'info';
-        }
         if (!in_array($this->type, $this->supportedType)) {
-            throw new ErrorException('unsupported type: '.$this->type);
+            throw new ErrorException('Unsupported type: ' . $this->type);
         }
 
         Html::addCssClass($this->options, 'callout');
-        Html::addCssClass($this->options, 'callout-'.$this->type);
+        Html::addCssClass($this->options, 'callout-' . $this->type);
 
         ob_start();
     }
 
+    /**
+     * @return string
+     */
     public function run()
     {
         $content = ob_get_clean();
 
         return strtr($this->template, [
             '{options}' => Html::renderTagAttributes($this->options),
-            '{head}' => $this->head,
-            '{body}' => $this->body.$content
+            '{optionsTitle}' => Html::renderTagAttributes($this->optionsTitle),
+            '{optionsContent}' => Html::renderTagAttributes($this->optionsContent),
+            '{title}' => $this->title,
+            '{content}' => $this->content . $content
         ]);
     }
 }
