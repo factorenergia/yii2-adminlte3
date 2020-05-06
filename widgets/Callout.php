@@ -54,21 +54,21 @@ class Callout extends Widget
      * Title options
      * @inheritdoc
      */
-    public array $optionsTitle = [];
+    public array $titleOptions = [];
 
     /**
      * Content options
      * @inheritdoc
      */
-    public array $optionsContent = [];
+    public array $contentOptions = [];
 
     /**
      * @var string $template
      */
     public $template = <<<html
         <div {options}>
-            <h5 {optionsTitle}>{title}</h5>
-            <p {optionsContent}>{content}</p>
+            <h5 {titleOptions}>{title}</h5>
+            <p {contentOptions}>{content}</p>
         </div>
     html;
 
@@ -95,8 +95,8 @@ class Callout extends Widget
 
         return strtr($this->template, [
             '{options}' => Html::renderTagAttributes($this->options),
-            '{optionsTitle}' => Html::renderTagAttributes($this->optionsTitle),
-            '{optionsContent}' => Html::renderTagAttributes($this->optionsContent),
+            '{titleOptions}' => Html::renderTagAttributes($this->titleOptions),
+            '{contentOptions}' => Html::renderTagAttributes($this->contentOptions),
             '{title}' => $this->title,
             '{content}' => $this->content . $content
         ]);
