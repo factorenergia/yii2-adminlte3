@@ -1,6 +1,8 @@
 <?php
+
 namespace factorenergia\adminlte3\widgets;
 
+use Yii;
 use yii\bootstrap4\Widget;
 
 /**
@@ -31,10 +33,10 @@ class FlashAlert extends Widget
      * - value: the bootstrap alert type (i.e. danger, success, info, warning)
      */
     public $alertTypes = [
-        'error'   => 'alert-danger',
-        'danger'  => 'alert-danger',
+        'error' => 'alert-danger',
+        'danger' => 'alert-danger',
         'success' => 'alert-success',
-        'info'    => 'alert-info',
+        'info' => 'alert-info',
         'warning' => 'alert-warning'
     ];
     /**
@@ -45,7 +47,7 @@ class FlashAlert extends Widget
 
     public function run()
     {
-        $session = \Yii::$app->session;
+        $session = Yii::$app->session;
         $flashes = $session->getAllFlashes();
         $appendClass = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
 
@@ -54,13 +56,13 @@ class FlashAlert extends Widget
                 continue;
             }
 
-            foreach ((array) $flash as $i => $message) {
+            foreach ((array)$flash as $i => $message) {
                 echo \yii\bootstrap4\Alert::widget([
                     'body' => $message,
                     'closeButton' => $this->closeButton,
                     'options' => array_merge($this->options, [
-                        'id' => $this->getId().'-'.$type.'-'.$appendClass,
-                        'class' => $this->alertTypes[$type].$appendClass
+                        'id' => $this->getId() . '-' . $type . '-' . $appendClass,
+                        'class' => $this->alertTypes[$type] . $appendClass
                     ])
                 ]);
             }

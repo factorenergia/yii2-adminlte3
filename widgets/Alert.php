@@ -1,4 +1,5 @@
 <?php
+
 namespace factorenergia\adminlte3\widgets;
 
 use yii\base\ErrorException;
@@ -60,7 +61,7 @@ class Alert extends Widget
             $this->type = 'info';
         }
         if (!isset($this->alertTypes[$this->type])) {
-            throw new ErrorException('unsupported type: '.$this->type);
+            throw new ErrorException('unsupported type: ' . $this->type);
         }
     }
 
@@ -68,14 +69,14 @@ class Alert extends Widget
     {
         $head = '';
         if (!$this->simple) {
-            $head = '<h5><i class="icon fas '.$this->alertTypes[$this->type]['icon'].'"></i> '.$this->title.'!</h5>';
+            $head = '<h5><i class="icon fas ' . $this->alertTypes[$this->type]['icon'] . '"></i> ' . $this->title . '!</h5>';
         }
 
         echo \yii\bootstrap4\Alert::widget([
-            'body' => $head.$this->body,
+            'body' => $head . $this->body,
             'closeButton' => $this->closeButton,
             'options' => [
-                'id' => $this->getId().'-'.$this->type,
+                'id' => $this->getId() . '-' . $this->type,
                 'class' => $this->alertTypes[$this->type]['class']
             ]
         ]);

@@ -1,4 +1,5 @@
 <?php
+
 namespace factorenergia\adminlte3\widgets;
 
 use yii\helpers\ArrayHelper;
@@ -48,39 +49,29 @@ use yii\helpers\Url;
 class Menu extends \yii\widgets\Menu
 {
     /**
-     * @inheritdoc
+     * @var string
      */
-    public $linkTemplate = '<a class="nav-link {active}" href="{url}" {target}>{icon} {label}</a>';
-
+    public static ?string $iconDefault = 'circle';
+    /**
+     * @var string
+     */
+    public static string $iconStyleDefault = 'fas';
     /**
      * @inheritdoc
      */
-    public $labelTemplate = '<p>{label} {treeFlag} {badge}</p>';
-
+    public ?string $linkTemplate = '<a class="nav-link {active}" href="{url}" {target}>{icon} {label}</a>';
+    /**
+     * @inheritdoc
+     */
+    public ?string $labelTemplate = '<p>{label} {treeFlag} {badge}</p>';
     /**
      * @var string treeview wrapper
      */
-    public $treeTemplate = "\n<ul class='nav nav-treeview'>\n{items}\n</ul>\n";
-
-    /**
-     * @var string
-     */
-    public static $iconDefault = 'circle';
-
-    /**
-     * @var string
-     */
-    public static $iconStyleDefault = 'fas';
-
+    public ?string $treeTemplate = "\n<ul class='nav nav-treeview'>\n{items}\n</ul>\n";
     /**
      * @inheritdoc
      */
-    public $itemOptions = ['class' => 'nav-item'];
-
-    /**
-     * @inheritdoc
-     */
-    public $activateParents = true;
+    public array $itemOptions = ['class' => 'nav-item'];
 
     /**
      * @inheritdoc
@@ -92,6 +83,10 @@ class Menu extends \yii\widgets\Menu
         'data-accordion' => 'false'
     ];
 
+    /**
+     * @param $items
+     * @return string
+     */
     protected function renderItems($items)
     {
         $n = count($items);
@@ -138,9 +133,13 @@ class Menu extends \yii\widgets\Menu
         return implode("\n", $lines);
     }
 
+    /**
+     * @param $item
+     * @return string
+     */
     protected function renderItem($item)
     {
-        if(isset($item['header']) && $item['header']) {
+        if (isset($item['header']) && $item['header']) {
             return $item['label'];
         }
 
@@ -149,11 +148,11 @@ class Menu extends \yii\widgets\Menu
         } else {
             $iconStyle = $item['iconStyle'] ?? static::$iconStyleDefault;
             $icon = $item['icon'] ?? static::$iconDefault;
-            $iconClassArr = ['nav-icon', $iconStyle, 'fa-'.$icon];
+            $iconClassArr = ['nav-icon', $iconStyle, 'fa-' . $icon];
             isset($item['iconClassAdded']) && $iconClassArr[] = $item['iconClassAdded'];
             $iconClass = implode(' ', $iconClassArr);
         }
-        $iconHtml = '<i class="'.$iconClass.'"></i>';
+        $iconHtml = '<i class="' . $iconClass . '"></i>';
 
         $treeFlag = '';
         if (isset($item['items'])) {
@@ -170,7 +169,7 @@ class Menu extends \yii\widgets\Menu
             '{url}' => isset($item['url']) ? Url::to($item['url']) : '#',
             '{icon}' => $iconHtml,
             '{active}' => $item['active'] ? $this->activeCssClass : '',
-            '{target}' => isset($item['target']) ? 'target="'.$item['target'].'"' : ''
+            '{target}' => isset($item['target']) ? 'target="' . $item['target'] . '"' : ''
         ]);
     }
 }
