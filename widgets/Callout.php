@@ -48,17 +48,15 @@ class Callout extends Widget
      * Callout options
      * @inheritdoc
      */
-    public array $options = [];
+    public $options = [];
 
     /**
      * Title options
-     * @inheritdoc
      */
     public array $titleOptions = [];
 
     /**
      * Content options
-     * @inheritdoc
      */
     public array $contentOptions = [];
 
